@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>URL Raccourcir</h2>
+    <input type="text" id="urlInput" placeholder="https://www.google.com">
+    <button onclick="shortenUrl()">Raccourcir</button>
+    <p id="result"></p>
+
+    <script>
+        async function shortenUrl() {
+            const url = document.getElementById('urlInput').value;
+            const res = await fetch('https://ca-url-shortener.wittyglacier-53ebacd3.swedencentral.azurecontainerapps.io/api/shorten', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ url: url })
+            });
+            const data = await res.json();
+            document.getElementById('result').innerHTML = `resultat: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+        }
+    </script>
+</body>
+</html>
